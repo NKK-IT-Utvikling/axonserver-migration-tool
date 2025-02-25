@@ -16,6 +16,8 @@
 
 package io.axoniq.axonserver.migration.source;
 
+import io.axoniq.axonserver.migration.MigrationContext;
+
 import java.util.List;
 
 /**
@@ -37,4 +39,6 @@ public interface EventProducer {
     default long getMinIndex() {
         return -1; // -1 indicates not supported
     }
+
+    MigrationContext getContext();
 }

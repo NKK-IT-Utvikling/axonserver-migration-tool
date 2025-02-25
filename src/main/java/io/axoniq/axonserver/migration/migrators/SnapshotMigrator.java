@@ -58,7 +58,7 @@ public class SnapshotMigrator implements Migrator {
     private final AtomicLong snapshotsMigrated = new AtomicLong();
 
     public void migrate() throws Exception {
-        MigrationStatus migrationStatus = migrationStatusRepository.findById(1L).orElse(new MigrationStatus());
+        MigrationStatus migrationStatus = migrationStatusRepository.findById((long) eventProducer.getContext().ordinal()).orElse(new MigrationStatus());
 
         String lastProcessedTimestamp = migrationStatus.getLastSnapshotTimestamp();
         String lastEventId = migrationStatus.getLastSnapshotEventId();

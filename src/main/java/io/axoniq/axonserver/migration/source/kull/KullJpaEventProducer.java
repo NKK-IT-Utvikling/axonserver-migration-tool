@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.axoniq.axonserver.migration.source.jpa;
+package io.axoniq.axonserver.migration.source.kull;
 
 
 import io.axoniq.axonserver.migration.MigrationContext;
@@ -25,9 +25,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 /**
  * Produces events when defining the migration source as {@code RDBMS}. Queries the database using JPA to look up events
@@ -37,9 +37,9 @@ import javax.persistence.PersistenceContext;
  * @author Mitchell Herrijgers
  */
 @Component
-@ConditionalOnProperty(value = "axoniq.migration.context", havingValue = "DEFAULT")
+@ConditionalOnProperty(value = "axoniq.migration.context", havingValue = "KULL")
 @Transactional(readOnly = true, transactionManager = "eventStoreTransactionManager")
-public class JpaEventProducer implements EventProducer {
+public class KullJpaEventProducer implements EventProducer {
 
     @PersistenceContext(name = "eventstore")
     private EntityManager entityManager;
@@ -47,7 +47,7 @@ public class JpaEventProducer implements EventProducer {
 
     @Override
     public List<? extends DomainEvent> findEvents(long lastProcessedToken, int batchSize) {
-        return entityManager.createNamedQuery("DomainEventEntry.findByGlobalIndex", DomainEventEntry.class)
+        return entityManager.createNamedQuery("KullDomainEventEntry.findByGlobalIndex", KullDomainEventEntry.class)
                             .setParameter("lastToken", lastProcessedToken)
                             .setMaxResults(batchSize)
                             .getResultList();
@@ -55,7 +55,7 @@ public class JpaEventProducer implements EventProducer {
 
     @Override
     public List<? extends SnapshotEvent> findSnapshots(String lastProcessedTimestamp, int batchSize) {
-        return entityManager.createNamedQuery("SnapshotEventEntry.findByTimestamp", SnapshotEventEntry.class)
+        return entityManager.createNamedQuery("KullSnapshotEventEntry.findByTimestamp", KullSnapshotEventEntry.class)
                             .setParameter("lastTimeStamp", lastProcessedTimestamp)
                             .setMaxResults(batchSize)
                             .getResultList();
@@ -63,18 +63,18 @@ public class JpaEventProducer implements EventProducer {
 
     @Override
     public long getMinIndex() {
-        return entityManager.createNamedQuery("DomainEventEntry.minGlobalIndex", Long.class)
+        return entityManager.createNamedQuery("KullDomainEventEntry.minGlobalIndex", Long.class)
                             .getSingleResult();
     }
 
     @Override
     public long getMaxIndex() {
-        return entityManager.createNamedQuery("DomainEventEntry.maxGlobalIndex", Long.class)
+        return entityManager.createNamedQuery("KullDomainEventEntry.maxGlobalIndex", Long.class)
                             .getSingleResult();
     }
 
     @Override
     public MigrationContext getContext() {
-        return MigrationContext.DEFAULT;
+        return MigrationContext.KULL;
     }
 }

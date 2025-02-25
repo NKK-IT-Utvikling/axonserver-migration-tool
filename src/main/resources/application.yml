@@ -3,14 +3,39 @@ spring:
     name: axonserver-migration
   jpa:
     database: default
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   main:
     banner-mode: off
+
 axoniq:
   datasource:
+    eventstore:
+      url: jdbc:sqlserver://nkk-prodtest.c5szu9i8rdws.eu-north-1.rds.amazonaws.com;databaseName=NKKSQL;trustServerCertificate=true;sendStringParametersAsUnicode=true
+      username: origin
+      password: TzIhVClvdIME433V
     migration:
-      url: jdbc:h2:./migrationdb
+      url: jdbc:sqlserver://localhost:7133;databaseName=msdb;trustServerCertificate=true;sendStringParametersAsUnicode=true
+      username: sa
+      password: WoopW007
   migration:
+    disable-naming-strategy: true
     batch-size: 100
+    source: rdbms
+    migrate-events: true
+    migrate-snapshots: false
+    context: kull
+
 axon:
+  axonserver:
+    #ssl-enabled: true
+    servers: localhost:7124
+    context: nkk-kull
+    #token:
   serializer:
     events: jackson
+
+logging:
+  level:
+    root: info

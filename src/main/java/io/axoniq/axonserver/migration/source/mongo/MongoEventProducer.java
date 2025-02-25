@@ -20,6 +20,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
+import io.axoniq.axonserver.migration.MigrationContext;
 import io.axoniq.axonserver.migration.source.EventProducer;
 import io.axoniq.axonserver.migration.source.SnapshotEvent;
 import org.bson.Document;
@@ -146,5 +147,8 @@ public class MongoEventProducer implements EventProducer {
         );
     }
 
-
+    @Override
+    public MigrationContext getContext() {
+        return MigrationContext.DEFAULT;
+    }
 }

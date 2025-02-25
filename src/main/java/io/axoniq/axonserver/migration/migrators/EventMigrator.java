@@ -60,7 +60,7 @@ public class EventMigrator implements Migrator {
     private final EventMigratorStatisticsReporter reporter;
 
     public void migrate() throws Exception {
-        MigrationStatus migrationStatus = migrationStatusRepository.findById(1L).orElse(new MigrationStatus());
+        MigrationStatus migrationStatus = migrationStatusRepository.findById((long) eventProducer.getContext().ordinal()).orElse(new MigrationStatus());
 
         long lastProcessedToken = migrationStatus.getLastEventGlobalIndex();
         reporter.initialize(lastProcessedToken);

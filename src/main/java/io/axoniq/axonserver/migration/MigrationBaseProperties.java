@@ -35,6 +35,7 @@ import java.util.List;
 @Setter
 public class MigrationBaseProperties {
     private MigrationSource source;
+    private MigrationContext context;
     private int batchSize = 100;
     private int recentMillis = 10000;
 

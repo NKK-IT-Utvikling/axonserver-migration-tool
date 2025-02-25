@@ -16,6 +16,7 @@
 
 package io.axoniq.axonserver.migration.source;
 
+import io.axoniq.axonserver.migration.MigrationContext;
 import io.axoniq.axonserver.migration.destination.EventStoreStrategy;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
@@ -45,5 +46,10 @@ public class MissingEventProducer implements EventProducer {
     @Override
     public List<? extends SnapshotEvent> findSnapshots(String lastProcessedTimestamp, int batchSize) {
         throw new IllegalStateException(MIGRATION_SOURCE_WAS_NOT_DEFINED);
+    }
+
+    @Override
+    public MigrationContext getContext() {
+        return MigrationContext.DEFAULT;
     }
 }
