@@ -28,7 +28,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(
-        name = "kull_domainevent",
+        name = "terminliste_domainevent",
         indexes = {@Index(
                 columnList = "aggregateIdentifier,sequenceNumber",
                 unique = true

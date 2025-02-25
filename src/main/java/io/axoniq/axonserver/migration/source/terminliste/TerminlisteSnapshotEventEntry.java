@@ -29,7 +29,7 @@ import javax.persistence.*;
  * @author Marc Gathier
  */
 @Entity
-@Table(name = "kull_snapshotevent")
+@Table(name = "terminliste_snapshotevent")
 @NamedQuery(name = "TerminlisteSnapshotEventEntry.findByTimestamp", query = "select e from TerminlisteSnapshotEventEntry e where e.timeStamp >= :lastTimeStamp order by e.timeStamp asc, e.eventIdentifier")
 @IdClass(TerminlisteSnapshotEventEntry.PK.class)
 public class TerminlisteSnapshotEventEntry extends BaseEventEntry implements SnapshotEvent {
