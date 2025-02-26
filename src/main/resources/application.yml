@@ -25,13 +25,13 @@ axoniq:
     source: rdbms
     migrate-events: true
     migrate-snapshots: false
-    context: kull
+    context: terminliste
 
 axon:
   axonserver:
     #ssl-enabled: true
     servers: localhost:7124
-    context: nkk-kull
+    context: nkk-terminliste
     #token:
   serializer:
     events: jackson

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package io.axoniq.axonserver.migration.source.kull;
+package io.axoniq.axonserver.migration.source.jpa.kull;
 
 import io.axoniq.axonserver.migration.source.SnapshotEvent;
 import io.axoniq.axonserver.migration.source.jpa.BaseEventEntry;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.*;
 
 /**
  * Entity representing a snapshot in the RDBMS store.

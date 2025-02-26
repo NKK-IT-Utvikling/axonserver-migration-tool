@@ -41,10 +41,12 @@ CREATE NONCLUSTERED INDEX [kull_domainevent_timeStamp] ON [dbo].[kull_domaineven
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
 
-insert into kull_domainevent2 (aggregateIdentifier, sequenceNumber, [type], eventIdentifier, metaData, payload, payloadRevision, payloadType, [timeStamp]) select aggregateIdentifier, sequenceNumber, [type], eventIdentifier, metaData, payload, payloadRevision, payloadType, [timeStamp] from kull_domainevent order by [timeStamp], aggregateIdentifier, sequenceNumber
+insert into kull_domainevent2 (aggregateIdentifier, sequenceNumber, [type], eventIdentifier, metaData, payload, payloadRevision, payloadType, [timeStamp])
+select aggregateIdentifier, sequenceNumber, [type], eventIdentifier, metaData, payload, payloadRevision, payloadType, [timeStamp]
+from kull_domainevent e
+inner join kull_kull k on k.id = e.aggregateIdentifier
+where k.updated > '2023-02-26' or k.ferdig is null
+order by [timeStamp], aggregateIdentifier, sequenceNumber
 
-
-drop table kull_domainevent;
-GO
-
+exec sp_rename 'kull_domainevent', 'kull_domainevent_old';
 exec sp_rename 'kull_domainevent2', 'kull_domainevent';

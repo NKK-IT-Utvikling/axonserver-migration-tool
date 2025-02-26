@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.axoniq.axonserver.migration.source.terminliste;
+package io.axoniq.axonserver.migration.source.jpa.terminliste;
 
 import io.axoniq.axonserver.migration.source.DomainEvent;
 import io.axoniq.axonserver.migration.source.jpa.BaseEventEntry;

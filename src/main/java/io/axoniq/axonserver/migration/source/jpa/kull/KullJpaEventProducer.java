@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.axoniq.axonserver.migration.source.kull;
+package io.axoniq.axonserver.migration.source.jpa.kull;
 
 
 import io.axoniq.axonserver.migration.MigrationContext;

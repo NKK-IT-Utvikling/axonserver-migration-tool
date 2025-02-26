@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.axoniq.axonserver.migration.source.terminliste;
+package io.axoniq.axonserver.migration.source.jpa.terminliste;
 
 
 import io.axoniq.axonserver.migration.MigrationContext;
@@ -37,7 +37,7 @@ import java.util.List;
  * @author Mitchell Herrijgers
  */
 @Component
-@ConditionalOnProperty(value = "axoniq.migration.context", havingValue = "Terminliste")
+@ConditionalOnProperty(value = "axoniq.migration.context", havingValue = "TERMINLISTE")
 @Transactional(readOnly = true, transactionManager = "eventStoreTransactionManager")
 public class TerminlisteJpaEventProducer implements EventProducer {
 

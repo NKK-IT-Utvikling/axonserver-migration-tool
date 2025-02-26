@@ -22,12 +22,13 @@ import io.axoniq.axonserver.migration.source.DomainEvent;
 import io.axoniq.axonserver.migration.source.EventProducer;
 import io.axoniq.axonserver.migration.source.SnapshotEvent;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 /**
  * Produces events when defining the migration source as {@code RDBMS}. Queries the database using JPA to look up events
@@ -39,6 +40,8 @@ import javax.persistence.PersistenceContext;
 @Component
 @ConditionalOnProperty(value = "axoniq.migration.context", havingValue = "DEFAULT")
 @Transactional(readOnly = true, transactionManager = "eventStoreTransactionManager")
+@EnableJpaRepositories(basePackages = "io.axoniq.axonserver.migration.source.jpa",
+        entityManagerFactoryRef = "eventStoreEntityManagerFactory")
 public class JpaEventProducer implements EventProducer {
 
     @PersistenceContext(name = "eventstore")
