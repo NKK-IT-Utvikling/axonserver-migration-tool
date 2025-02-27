@@ -41,13 +41,19 @@ CREATE NONCLUSTERED INDEX [terminliste_domainevent_timeStamp] ON [dbo].[terminli
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
 
+CREATE NONCLUSTERED INDEX [terminliste_domainevent_globalIndex] ON [dbo].[terminliste_domainevent2]
+(
+	[globalIndex] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+
 insert into terminliste_domainevent2 (aggregateIdentifier, sequenceNumber, [type], eventIdentifier, metaData, payload, payloadRevision, payloadType, [timeStamp])
 select aggregateIdentifier, sequenceNumber, e.[type], eventIdentifier, metaData, payload, payloadRevision, payloadType, [timeStamp]
 from terminliste_domainevent e
-    inner join terminliste_arrangement a on a.id = e.aggregateIdentifier
+inner join terminliste_arrangement a on a.id = e.aggregateIdentifier
 where a.updated > '2024-02-26' or a.status not in ('Anerkjent','Avlyst','Avslaatt','Slettet')
 order by [timeStamp], aggregateIdentifier, sequenceNumber
 
 
-    exec sp_rename 'terminliste_domainevent', 'terminliste_domainevent_old';
+exec sp_rename 'terminliste_domainevent', 'terminliste_domainevent_old';
 exec sp_rename 'terminliste_domainevent2', 'terminliste_domainevent';

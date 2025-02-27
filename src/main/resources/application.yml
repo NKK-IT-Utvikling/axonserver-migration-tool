@@ -6,6 +6,7 @@ spring:
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
   main:
     banner-mode: off
 
@@ -25,13 +26,13 @@ axoniq:
     source: rdbms
     migrate-events: true
     migrate-snapshots: false
-    context: terminliste
+    context: kull
 
 axon:
   axonserver:
     #ssl-enabled: true
     servers: localhost:7124
-    context: nkk-terminliste
+    context: nkk-kull
     #token:
   serializer:
     events: jackson
