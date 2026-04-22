@@ -33,7 +33,7 @@
         <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
 
         <axon.version>4.6.8</axon.version>
-        <h2.version>1.4.197</h2.version>
+        <h2.version>2.2.220</h2.version>
         <spring-boot.version>2.7.1</spring-boot.version>
         <grpc.version>1.50.3</grpc.version>
         <lombok.version>1.18.24</lombok.version>
