@@ -18,6 +18,7 @@ package io.axoniq.axonserver.migration.source.axonserver;
 
 import io.axoniq.axonserver.connector.event.EventStream;
 import io.axoniq.axonserver.grpc.event.EventWithToken;
+import io.axoniq.axonserver.migration.MigrationContext;
 import io.axoniq.axonserver.migration.source.EventProducer;
 import io.axoniq.axonserver.migration.source.SnapshotEvent;
 import lombok.extern.slf4j.Slf4j;
@@ -87,5 +88,10 @@ public class AxonServerEventProducer implements EventProducer {
     public List<? extends SnapshotEvent> findSnapshots(String lastProcessedTimestamp, int batchSize) {
         // Unfortunately, not possible with Axon Server.
         return Collections.emptyList();
+    }
+
+    @Override
+    public MigrationContext getContext() {
+        return MigrationContext.DEFAULT;
     }
 }
