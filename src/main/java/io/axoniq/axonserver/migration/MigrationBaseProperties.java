@@ -51,12 +51,12 @@ public class MigrationBaseProperties {
 
     public enum MigrationSource {
         RDBMS,
-        MONGO
+        MONGO,
+        AXONSERVER,
     }
 
     public enum MigrationDestination {
-        REMOTE,
-        LOCAL
+        AXONSERVER
     }
 
     /**

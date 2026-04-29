@@ -18,7 +18,8 @@ package io.axoniq.axonserver.migration.migrators;
 
 import io.axoniq.axonserver.migration.source.EventProducer;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -34,9 +35,9 @@ import java.time.temporal.ChronoUnit;
  */
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class EventMigratorStatisticsReporter {
 
+    private static final Logger log = LoggerFactory.getLogger(EventMigratorStatisticsReporter.class);
     private final EventProducer eventProducer;
     private boolean enabled = true;
     private long startToken = 0;
