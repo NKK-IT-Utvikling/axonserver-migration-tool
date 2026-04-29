@@ -25,7 +25,8 @@ import io.axoniq.axonserver.migration.serialisation.EventSerializer;
 import io.axoniq.axonserver.migration.source.DomainEvent;
 import io.axoniq.axonserver.migration.source.EventProducer;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
@@ -48,7 +49,6 @@ import java.util.stream.Collectors;
  */
 @RequiredArgsConstructor
 @Service
-@Slf4j
 @ConditionalOnProperty(value = "axoniq.migration.migrateEvents", havingValue = "true", matchIfMissing = true)
 public class EventMigrator implements Migrator {
 
@@ -58,6 +58,7 @@ public class EventMigrator implements Migrator {
     private final MigrationStatusRepository migrationStatusRepository;
     private final EventStoreStrategy eventStoreStrategy;
     private final EventMigratorStatisticsReporter reporter;
+    private static final Logger log = LoggerFactory.getLogger(EventMigrator.class);
 
     public void migrate() throws Exception {
         MigrationStatus migrationStatus = migrationStatusRepository.findById((long) eventProducer.getContext().ordinal()).orElse(new MigrationStatus());

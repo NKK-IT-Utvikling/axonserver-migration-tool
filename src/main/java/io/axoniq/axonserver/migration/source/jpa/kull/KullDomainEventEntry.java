@@ -19,7 +19,7 @@ package io.axoniq.axonserver.migration.source.jpa.kull;
 import io.axoniq.axonserver.migration.source.DomainEvent;
 import io.axoniq.axonserver.migration.source.jpa.BaseEventEntry;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * Entity representing an event in the RDBMS store.

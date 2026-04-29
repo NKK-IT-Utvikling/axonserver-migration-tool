@@ -19,7 +19,7 @@ package io.axoniq.axonserver.migration.source.jpa.kull;
 import io.axoniq.axonserver.migration.source.SnapshotEvent;
 import io.axoniq.axonserver.migration.source.jpa.BaseEventEntry;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
