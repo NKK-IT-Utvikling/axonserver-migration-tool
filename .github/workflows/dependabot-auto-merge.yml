@@ -36,7 +36,13 @@ jobs:
           contains(steps.meta.outputs.dependency-names, 'no.nkk') ||
           steps.meta.outputs.dependency-group != '' ||
           steps.meta.outputs.update-type == 'version-update:semver-minor'
-        run: gh pr checks "$PR_URL" --required --watch --fail-fast
+        run: |
+          for i in $(seq 1 20); do
+            if gh pr checks "$PR_URL" --required --watch --fail-fast >/tmp/amchecks 2>&1; then exit 0; fi
+            grep -q "no required checks reported" /tmp/amchecks && { echo "Required checks not registered yet; waiting…"; sleep 15; continue; }
+            cat /tmp/amchecks; exit 1
+          done
+          echo "Timed out waiting for required checks to appear"; exit 1
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
